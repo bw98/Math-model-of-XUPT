@@ -1,0 +1,26 @@
+首先对数据采用肖维勒和拉依达方法进行预处理，检验是否存在偏差较大的异常点
+肖维勒准则剔除异常数据模型建立
+肖维勒准则认为:当残差
+|v i | = |X i − X̅ | > ωn * σ (1)
+Xi 为测量值，X̅  为平均值, σ 为标准偏差。
+测定值 X i 就是含有粗差的可疑数据,应当予以剔除。通过对该方法的n次测
+量结果进行分析,如果某误差出现的次数小于 1/2n 次时,则将其剔除。按照下
+列近似公式,通过 MATLAB 程序求解:
+ωn = 1 + 0.4 ln(n) (2)
+(2)
+其中,ω n 为肖维勒系数。
+
+matlab求解程序如下：
+   dataNUM=length(datax);
+
+   datax_NEW=datax;
+
+   w=1+0.4*log(dataNUM);%若采用拉依达方法，w=3
+
+   removedata = abs(datax_NEW-mean(datax_NEW)) > w*std(datax_NEW);
+
+   datax_NEW(removedata)=[];
+
+然后利用matlab的hist方法画出图像
+hist(datax_NEW,50);
+>> hist(datax,50);
